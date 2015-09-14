@@ -6,10 +6,12 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    DISABLE_RANGE_API: true,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+        "ember-htmlbars-component-generation": true
       }
     },
 

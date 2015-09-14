@@ -1,0 +1,40 @@
+a-song-glimmer,
+.a-song
+{
+  display: flex;
+  border: 1px solid black;
+  height: 44px;
+  align-items: center;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  .title {
+    flex: 1 3 360px;
+    margin-right: 16px;
+  }
+
+  .artist {
+    flex: 1 2 140px;
+    margin-right: 16px;
+  }
+
+  .album {
+    flex: 1 3 360px;
+    margin-right: 16px;
+  }
+
+  .genre {
+    flex: 1 1 90px;
+    margin-right: 16px;
+  }
+
+  .year {
+    display: flex;
+    margin-right: 16px;
+  }
+
+  .newClass {
+    display: flex;
+    color: "black"
+  }
+}

@@ -1,11 +1,12 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('a-song-glimmer', 'Integration | Component | a song glimmer', {
+moduleForComponent('a-song-canary', 'Integration | Component | a song canary', {
   integration: true
 });
 
 const song = {
+  id: '1',
   artist: 'Jamie xx',
   title: 'Loud Places',
   album: 'In Colour',
@@ -19,9 +20,9 @@ test('it displays the song details', function(assert) {
   // set context
   this.set('song', song);
 
-  this.render(hbs`<a-song-glimmer artist={{song.artist}} title={{song.title}} album={{song.album}} year={{song.year}} genre={{song.genre}} />`);
+  this.render(hbs`<a-song-canary artist={{song.artist}} title={{song.title}} album={{song.album}} year={{song.year}} genre={{song.genre}} />`);
 
-  const $component = this.$('a-song-glimmer');
+  const $component = this.$('a-song-canary');
 
   assert.equal($component.find('.artist').text(), 'Jamie xx',
       'found artist name');
@@ -32,16 +33,16 @@ test('it displays the song details', function(assert) {
 });
 
 test('it handles likes', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
 
-  // set context
-  this.on('addToFavourites', function() {
+  // set component context
+  this.on('addToFavourites', function(id) {
     assert.ok(true, 'liking a song adds it to user favourites');
+    assert.equal(id, '1', 'passed the song id');
   });
 
-  this.render(hbs`<a-song-glimmer like='addToFavourites'/>`);
-
-  const $component = this.$('a-song-glimmer');
+  this.render(hbs`<a-song-canary id='1' onLike={{action 'addToFavourites'}} />`);
+  const $component = this.$('a-song-canary');
 
   $component.find('button').click();
 });

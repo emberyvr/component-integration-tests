@@ -6,6 +6,7 @@ moduleForComponent('a-song', 'Integration | Component | a song', {
 });
 
 const song = {
+  id: '1',
   artist: 'Jamie xx',
   title: 'Loud Places',
   album: 'In Colour',
@@ -32,15 +33,26 @@ test('it displays the song details', function(assert) {
 
 
 test('it handles likes', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
 
-  // set outer context
-  this.on('addToFaves', function() {
+  // set component context
+  const songId = '1';
+  this.on('addToFavourites', function(id) {
     assert.ok(true, 'liking a song adds it to user favourites');
+    assert.equal(id, songId, 'passed the song id');
   });
 
-  this.render(hbs`{{a-song like='addToFaves'}}`);
+  /**
+   * Ember 2.0 replaces action bubbling with function passing
+   * this.render(hbs`{{a-song onLike='addToFaves'}}`);
+   *
+   * (action 'addToFaves') looks for the action in contexts `action`
+   * hash
+   * (action addToFaves) looks for the action in the context directly
+  **/
 
+
+  this.render(hbs`{{a-song id='1' onLike=(action 'addToFavourites')}}`);
   const $component = this.$('.a-song');
 
   $component.find('button').click();
